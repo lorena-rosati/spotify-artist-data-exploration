@@ -190,5 +190,46 @@ GROUP BY album;
 INSERT TABLE------------------------------------------------------------------------------------------------------------------------
 According this table, most sound metrics are quite similar. The largest discrepancy between the two albums seems to be the level of acousticness, with evermore having a score of 80% while folklore has a score of 71%. The only other contributor seems to be the release date, with folklore being released first. While with other albums, newer albums seem to perform better than older albums of similar genres according to previous analysis, it is the opposite for folklore and evermore. The only difference is that folklore and evermore are quite different genres from the rest of Taylor Swift's albums, so it can be speculated that folklore had the novelty of a different sound, whereas evermore wasn't as much as a genre shift since it came after folklore. 
 
+Next, I analyzed the factors contributing to the popularity of songs. I started by trying to get a better understanding of the differences between the 10 most popular and least popular songs. 
+SELECT 'Top 10 Songs' AS song_name,
+ROUND(AVG(CAST(duration_ms as numeric)), 2) AS duration_avg,
+ROUND(AVG(acousticness), 2) AS acousticness_avg,
+ROUND(AVG(danceability), 2) AS danceability_avg,
+ROUND(AVG(energy), 2) AS energy_avg,
+ROUND(AVG(instrumentalness), 2) AS instrumentalness_avg,
+ROUND(AVG(liveness), 2) AS liveness_avg,
+ROUND(AVG(loudness), 2) AS loudness_avg,
+ROUND(AVG(speechiness), 2) AS speechiness_avg,
+ROUND(AVG(tempo), 2) AS tempo_avg,
+ROUND(AVG(valence), 2) AS valence_avg
+FROM (
+SELECT name, duration_ms, acousticness, danceability, energy, instrumentalness, liveness, loudness, speechiness, tempo, valence
+FROM taylor_swift_spotify
+WHERE comment = '-'
+ORDER BY popularity DESC
+LIMIT 10
+) AS top_songs
+UNION ALL
+SELECT 'Lowest 10 Songs' AS song_name,
+ROUND(AVG(CAST(duration_ms as numeric)), 2) AS duration_avg,
+ROUND(AVG(acousticness), 2) AS acousticness_avg,
+ROUND(AVG(danceability), 2) AS danceability_avg,
+ROUND(AVG(energy), 2) AS energy_avg,
+ROUND(AVG(instrumentalness), 2) AS instrumentalness_avg,
+ROUND(AVG(liveness), 2) AS liveness_avg,
+ROUND(AVG(loudness), 2) AS loudness_avg,
+ROUND(AVG(speechiness), 2) AS speechiness_avg,
+ROUND(AVG(tempo), 2) AS tempo_avg,
+ROUND(AVG(valence), 2) AS valence_avg
+FROM (
+SELECT name, duration_ms, acousticness, danceability, energy, instrumentalness, liveness, loudness, speechiness, tempo, valence
+FROM taylor_swift_spotify
+WHERE comment = '-'
+ORDER BY popularity
+LIMIT 10
+) AS low_songs;
+INSERT TABLE------------------------------------------------------------------------------------------------------------------------
+The 10 least popular songs are about 23 seconds longer than the 10 most popular songs (on average), meaning that her shorter songs perform better. Similarly, her most popular songs have a 29% acousticness rating, whereas her least popular song have a 19% acousticness rating. 
 
-
+# Next Steps
+Some possible next steps to expand on these findings is to use Python for data visualization. Similarly, doing so can then be used to predict song popularity.
