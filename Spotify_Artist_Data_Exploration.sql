@@ -148,7 +148,7 @@ SET
 		END;
 
 --Ensuring no whitespace in the name and collab column values
-UPDATE taylor_swift_spotify SET name = TRIM(name), collab = TRIM(collab);
+UPDATE taylor_swift_spotify SET name = TRIM(name), collab = TRIM(collab), comment = TRIM(comment);
 
 
 
