@@ -32,14 +32,14 @@ ORDER BY
     name;
 ```
 
-I noticed a column called "col" which did not have an obvious purpose from its title. It seemed like it began at 0 and was in increasing order of song release, so to make this more clear, I renamed the column to release order and added 1 to each value so the most recent release is labelled "1" rather than "0".
+I noticed a column called "col" which did not have an obvious purpose from its title. It seemed like it began at 0 and was in increasing order of song release, so to make this more clear, I renamed the column to "release_order" and added 1 to each value so the most recent release has a value "1" rather than "0" in this column.
 ```
 SELECT * from taylor_swift_spotify ORDER BY col;
 ALTER TABLE taylor_swift_spotify RENAME COLUMN col TO release_order;
 UPDATE taylor_swift_spotify SET release_order = release_order + 1;
 ```
 
-Next, I wanted to ensure that popularity is a value ranging from 0 to 100 and other metrics relating to the "sound" of the song were values ranging from 0 to 1 for all data in accordance with the dataset documentation.
+Next, I wanted to ensure that popularity is a value ranging from 0 to 100 and other metrics relating to the "sound" of the song were values ranging from 0 to 1 for all data (in accordance with the dataset documentation).
 ```
 SELECT
     GREATEST(acousticness,
@@ -97,7 +97,7 @@ SET
         END;
 ```
 
-Similarly, some song names including the name of a feature artist on the song. I also wanted to remove this from the song name and create a separate column with this artists' name in order to analyze the impact of collaborators on a song's overall success. One song, "Snow on the Beach (feat. More Lana Del Ray)", had the word "More" as part of the collaborator's "name", so I ensured that that was removed as well.
+Similarly, some song names included the name of a feature artist on the song. I also wanted to remove this from the song name and create a separate column with this artists' name in order to only have actual song titles in the "name" column. One song, "Snow on the Beach (feat. More Lana Del Ray)", had the word "More" as part of the collaborator's "name", so I ensured that that was removed as well.
 ```
 ALTER TABLE taylor_swift_spotify ADD collab text;
 
@@ -126,9 +126,9 @@ SET
 		END;
 ```
 
-Finally, I removed all possible whitespace before and after text:
+Finally, I removed all possible whitespace before and after text columns:
 ```
-UPDATE taylor_swift_spotify SET name = TRIM(name), collab = TRIM(collab);
+UPDATE taylor_swift_spotify SET name = TRIM(name), collab = TRIM(collab), comment = TRIM(comment);
 ```
 
 # Analysis
@@ -180,7 +180,7 @@ WHERE album IN ('folklore', 'evermore');
 ![2_Comparing_Top_Albums](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/ddc21a7f-8bad-4fcf-b3c5-b4af00eb0289)
 This table shows that folklore and evermore are, on average, much more acoustic than Lover and reputation, as their average "acoustic score" is 75% (vs. 25% for Lover/reputation). Other metrics don't seem to be as major of factors, but the table does show that the energy and danceability are more prominent in songs off of the Lover and reputation albums and these songs have quicker tempos. Lover and reputation are Taylor Swift's pop albums and folklore are evermore are her more folk/indie albums, so even though all four albums are widely loved by fans according to these stats, it seems as though her pop albums are preferred. This makes sense as well because she is more widely recognized by the public as a pop/country singer, rather than an indie/folk singer. 
 
-Before concluding my analysis of her albums, folklore and evermore are widely regarded by fans as sister albums and evermore is newer, yet folklore is higher in popularity. I wanted to compare their "sound" metrics to understand any factors that may contribute to this.
+Similarly, folklore and evermore are widely regarded by fans as sister albums and evermore is newer, yet folklore is higher in popularity. I wanted to compare their "sound" metrics to understand any factors that may contribute to this.
 ```
 SELECT album, 
 ROUND(AVG(acousticness), 2) AS acousticness_avg,
@@ -197,9 +197,9 @@ WHERE album IN ('folklore', 'evermore')
 GROUP BY album;
 ```
 ![3_Comparing_Folklore_and_Evermore](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/fb96cc9c-52ca-4ccd-bc05-1bc3b1553cc4)
-According this table, most sound metrics are quite similar. The largest discrepancy between the two albums seems to be the level of acousticness, with evermore having a score of 80% while folklore has a score of 71%. The only other contributor seems to be the release date, with folklore being released first. While with other albums, newer albums seem to perform better than older albums of similar genres according to previous analysis, it is the opposite for folklore and evermore. The only difference is that folklore and evermore are quite different genres from the rest of Taylor Swift's albums, so it can be speculated that folklore had the novelty of a different sound, whereas evermore wasn't as much as a genre shift since it came after folklore. 
+According this table, most sound metrics are quite similar. The largest discrepancy between the two albums seems to be the level of acousticness, with evermore having a score of 80% while folklore has a score of 71%. The only other contributor seems to be the release date, with folklore being released first. While with other albums, newer albums seem to perform better than older albums of similar genres according to previous analysis, it is the opposite for folklore and evermore. The only difference is that folklore and evermore are quite different genres from the rest of Taylor Swift's albums, so it can be speculated that folklore had the novelty of a different sound, whereas evermore wasn't as much of a genre shift since it came after folklore. 
 
-Next, I analyzed the factors contributing to the popularity of songs. I started by trying to get a better understanding of the differences between the 10 most popular and least popular songs. 
+Next, I analyzed the factors contributing to the popularity of songs. I started by trying to get a better understanding of the differences between the ten most popular and least popular songs. 
 ```
 SELECT 'Top 10 Songs' AS song_name,
 ROUND(AVG(CAST(duration_ms as numeric)), 2) AS duration_avg,
@@ -240,7 +240,7 @@ LIMIT 10
 ) AS low_songs;
 ```
 ![4_Comparing_Most_and_Least_Popular_Songs](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/253bce28-1f88-4831-a446-3879cb7cac47)
-The 10 least popular songs are about 23 seconds longer than the 10 most popular songs (on average), meaning that her shorter songs perform better. Similarly, her most popular songs have a 29% acousticness rating, whereas her least popular song have a 19% acousticness rating. 
+The 10 least popular songs are about 23 seconds longer than the 10 most popular songs (on average), meaning that her shorter songs perform better. Similarly, her most popular songs have a 29% acousticness rating, whereas her least popular song have a 19% acousticness rating. This means that, generally speaking, songs perform better when they are less acoustic. 
 
 # Next Steps
 Some possible next steps to expand on these findings is to use Python for data visualization. Similarly, doing so can then be used to predict song popularity.
