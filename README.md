@@ -242,9 +242,7 @@ LIMIT 10
 ![4_Comparing_Most_and_Least_Popular_Songs](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/253bce28-1f88-4831-a446-3879cb7cac47)
 The 10 least popular songs are about 23 seconds longer than the 10 most popular songs (on average), meaning that her shorter songs perform better. Similarly, her most popular songs have a 29% acousticness rating, whereas her least popular song have a 19% acousticness rating. This means that, generally speaking, songs perform better when they are less acoustic. 
 
-# Next Steps
-Some possible next steps to expand on these findings is to use Python for data visualization. Similarly, doing so can then be used to predict song popularity.
 
-
+----------
 Source of the dataset: https://www.kaggle.com/datasets/jarredpriester/taylor-swift-spotify-dataset
 
