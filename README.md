@@ -2,8 +2,6 @@
 
 With this data exploration, I aimed to practice my SQL data cleaning and analysis skills by analyzing trends in the popularity of Taylor Swift's songs and albums. More specifically, I focused on analyzing which factors contribute to an album/song's popularity, from the release date to metrics on a song's energy, acousticness, featured artists, and more.
 
-Source of the dataset: https://www.kaggle.com/datasets/jarredpriester/taylor-swift-spotify-dataset
-
 # Cleaning
 I started by checking if there were any null values throughout the table with the following query:
 ```
@@ -246,3 +244,6 @@ The 10 least popular songs are about 23 seconds longer than the 10 most popular 
 
 # Next Steps
 Some possible next steps to expand on these findings is to use Python for data visualization. Similarly, doing so can then be used to predict song popularity.
+
+Source of the dataset: https://www.kaggle.com/datasets/jarredpriester/taylor-swift-spotify-dataset
+
