@@ -1,6 +1,6 @@
 # Spotify Artist Data Exploration
 
-With this data exploration, I aimed to practice my SQL data cleaning and analysis skills by analyzing trends in the popularity of Taylor Swift's songs and albums. More specifically, I focused on analyzing which factors contribute to an album/song's popularity, from the release date to metrics on a song's energy, acousticness, featured artists, and more.
+With this data exploration, I aimed to practice my SQL data cleaning and analysis skills by analyzing trends in the popularity of Taylor Swift's songs and albums. More specifically, I focused on analyzing which factors contribute to an album/song's popularity, from the release date to metrics on a song's energy, acousticness, and more.
 
 # Cleaning
 I started by checking if there were any null values throughout the table with the following query:
