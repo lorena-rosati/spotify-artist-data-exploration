@@ -149,7 +149,7 @@ ROUND(AVG(tempo), 2) AS tempo_avg,
 ROUND(AVG(valence), 2) AS valence_avg
 FROM taylor_swift_spotify GROUP BY album ORDER BY popularity_avg DESC;
 ```
-INSERT TABLEEEEE-----------------------------------------------------------------------------
+![1_Most_Popular_Songs](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/7526572e-f19d-4858-b85d-eaca7c2ba59a)
 
 The factors influencing the albums's popularity seem to be very correlated to release date, as all of the newest albums are towards the top of the popularity list. However, reputation and Lover are older than folklore and evermore, yet they rank higher. To examine this, I ran a similar query but wanted to compare Lover and reputation with folklore and evermore.
 ```
@@ -179,7 +179,7 @@ ROUND(AVG(valence), 2) AS valence_avg
 FROM taylor_swift_spotify
 WHERE album IN ('folklore', 'evermore');
 ```
-INSERT TABLE------------------------------------------------------------------------------------------------------------------------
+![2_Comparing_Top_Albums](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/ddc21a7f-8bad-4fcf-b3c5-b4af00eb0289)
 This table shows that folklore and evermore are, on average, much more acoustic than Lover and reputation, as their average "acoustic score" is 75% (vs. 25% for Lover/reputation). Other metrics don't seem to be as major of factors, but the table does show that the energy and danceability are more prominent in songs off of the Lover and reputation albums and these songs have quicker tempos. Lover and reputation are Taylor Swift's pop albums and folklore are evermore are her more folk/indie albums, so even though all four albums are widely loved by fans according to these stats, it seems as though her pop albums are preferred. This makes sense as well because she is more widely recognized by the public as a pop/country singer, rather than an indie/folk singer. 
 
 Before concluding my analysis of her albums, folklore and evermore are widely regarded by fans as sister albums and evermore is newer, yet folklore is higher in popularity. I wanted to compare their "sound" metrics to understand any factors that may contribute to this.
@@ -198,7 +198,7 @@ FROM taylor_swift_spotify
 WHERE album IN ('folklore', 'evermore')
 GROUP BY album;
 ```
-INSERT TABLE------------------------------------------------------------------------------------------------------------------------
+![3_Comparing_Folklore_and_Evermore](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/fb96cc9c-52ca-4ccd-bc05-1bc3b1553cc4)
 According this table, most sound metrics are quite similar. The largest discrepancy between the two albums seems to be the level of acousticness, with evermore having a score of 80% while folklore has a score of 71%. The only other contributor seems to be the release date, with folklore being released first. While with other albums, newer albums seem to perform better than older albums of similar genres according to previous analysis, it is the opposite for folklore and evermore. The only difference is that folklore and evermore are quite different genres from the rest of Taylor Swift's albums, so it can be speculated that folklore had the novelty of a different sound, whereas evermore wasn't as much as a genre shift since it came after folklore. 
 
 Next, I analyzed the factors contributing to the popularity of songs. I started by trying to get a better understanding of the differences between the 10 most popular and least popular songs. 
@@ -241,7 +241,7 @@ ORDER BY popularity
 LIMIT 10
 ) AS low_songs;
 ```
-INSERT TABLE------------------------------------------------------------------------------------------------------------------------
+![4_Comparing_Most_and_Least_Popular_Songs](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/253bce28-1f88-4831-a446-3879cb7cac47)
 The 10 least popular songs are about 23 seconds longer than the 10 most popular songs (on average), meaning that her shorter songs perform better. Similarly, her most popular songs have a 29% acousticness rating, whereas her least popular song have a 19% acousticness rating. 
 
 # Next Steps
