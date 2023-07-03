@@ -148,6 +148,7 @@ ROUND(AVG(valence), 2) AS valence_avg
 FROM taylor_swift_spotify GROUP BY album ORDER BY popularity_avg DESC;
 ```
 ![1_Most_Popular_Songs](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/7526572e-f19d-4858-b85d-eaca7c2ba59a)
+![Popularity_vs_Time](https://github.com/lorena-rosati/spotify-artist-data-exploration/assets/122554042/cf8ed1ee-65c9-440d-9173-fa29f005d732)
 
 The factors influencing the albums's popularity seem to be very correlated to release date, as all of the newest albums are towards the top of the popularity list. However, reputation and Lover are older than folklore and evermore, yet they rank higher. To examine this, I ran a similar query but wanted to compare Lover and reputation with folklore and evermore.
 ```
